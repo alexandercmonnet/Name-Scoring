@@ -1,0 +1,54 @@
+plugins {
+    id 'application'
+    id 'jacoco'
+	id 'java'
+}
+
+group = 'org.monnet.namescoring'
+version = "0.0.1"
+
+configurations {
+	developmentOnly
+	runtimeClasspath {
+		extendsFrom developmentOnly
+	}
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compileOnly 'org.projectlombok:lombok:1.18.12'
+	annotationProcessor 'org.projectlombok:lombok:1.18.12'
+	
+	testCompileOnly 'org.projectlombok:lombok:1.18.12'
+	testAnnotationProcessor 'org.projectlombok:lombok:1.18.12'
+
+    testCompile 'org.mockito:mockito-core:3.2.4'
+    testCompile 'org.testng:testng:7.1.0'
+}
+
+application {
+    mainClassName = 'org.monnet.namescoring.application.NameScoring'
+}
+
+run {
+    args '-f', './sample-input/testNameFile.txt'
+}
+
+test {
+	useTestNG()
+    finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        html.destination file("${buildDir}/jacocoHtml")
+    }
+}
+
