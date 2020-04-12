@@ -9,18 +9,19 @@ import java.util.List;
 import org.monnet.namescoring.entity.CharacterScoreMap;
 import org.monnet.namescoring.entity.LinearUpperCaseCharacterScoreMap;
 import org.monnet.namescoring.entity.Name;
+import org.monnet.namescoring.service.implmentation.FirstNameScoringServiceImpl;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 public class ScoringServiceFirstNameImplTest {
 
-    private ScoringService scoringServiceFirstNameImpl;
+    private NameScoringService scoringServiceFirstNameImpl;
     private CharacterScoreMap linearUpperCaseCharacterScoreMap;
 
     @BeforeClass
     public void setup() {
         this.linearUpperCaseCharacterScoreMap = new LinearUpperCaseCharacterScoreMap();
-        this.scoringServiceFirstNameImpl = new ScoringServiceFirstNameImpl(linearUpperCaseCharacterScoreMap);
+        this.scoringServiceFirstNameImpl = new FirstNameScoringServiceImpl(linearUpperCaseCharacterScoreMap);
     }
 
     @Test
@@ -43,12 +44,31 @@ public class ScoringServiceFirstNameImplTest {
 
 
     @Test
-    public void testComputeNameListScore_ExampleList() throws Exception {
+    public void testComputeNameListScore_SimpleList() throws Exception {
         final List<Name> namesToScore = new ArrayList<>(); 
         namesToScore.add(new Name("LINDA"));
         namesToScore.add(new Name("MARY"));
 
-        final Integer expectedResult = 154; //(40 * 1) + (57 * 2) = 154
+        final Integer expectedResult = 154; //(40 * 1) + (57 * 2) = 137
+        final Integer actualResult = this.scoringServiceFirstNameImpl.computeNameListScore(namesToScore);
+
+        assertEquals(actualResult, expectedResult);
+    }
+
+    @Test
+    public void testComputeNameListScore_WithAscSortedSuppliedExampleList() throws Exception {
+        final List<Name> namesToScore = new ArrayList<>(); 
+        namesToScore.add(new Name("BARBARA"));
+        namesToScore.add(new Name("HAI"));
+        namesToScore.add(new Name("JERE"));
+        namesToScore.add(new Name("LINDA"));
+        namesToScore.add(new Name("LYNWOOD"));
+        namesToScore.add(new Name("MARY"));
+        namesToScore.add(new Name("PATRICIA"));
+        namesToScore.add(new Name("SHON"));
+        namesToScore.add(new Name("VINCENZO"));
+
+        final Integer expectedResult = 3194;
         final Integer actualResult = this.scoringServiceFirstNameImpl.computeNameListScore(namesToScore);
 
         assertEquals(actualResult, expectedResult);

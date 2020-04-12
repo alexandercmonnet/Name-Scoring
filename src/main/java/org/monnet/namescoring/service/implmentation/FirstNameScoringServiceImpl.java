@@ -1,4 +1,4 @@
-package org.monnet.namescoring.service;
+package org.monnet.namescoring.service.implmentation;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,18 +6,19 @@ import java.util.Optional;
 import org.monnet.namescoring.entity.CharacterScoreMap;
 import org.monnet.namescoring.entity.Name;
 import org.monnet.namescoring.exception.UnsupportedCharacterException;
+import org.monnet.namescoring.service.NameScoringService;
 
 /**
- * This service implementation calculates the 
+ * This service implementation calculates the score for names based on their {@link Name#getFirstName()} value
  */
-public class ScoringServiceFirstNameImpl implements ScoringService {
+public class FirstNameScoringServiceImpl implements NameScoringService {
 
     /**
-     * An injectable mapping of character to numerical value
+     * A mapping of character to numerical value
      */
     private CharacterScoreMap characterPointMap;
 
-    public ScoringServiceFirstNameImpl(CharacterScoreMap characterPointMap) {
+    public FirstNameScoringServiceImpl(CharacterScoreMap characterPointMap) {
         this.characterPointMap = characterPointMap;
     }
 

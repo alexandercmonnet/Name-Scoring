@@ -5,7 +5,7 @@ import java.util.List;
 import org.monnet.namescoring.entity.Name;
 import org.monnet.namescoring.exception.UnsupportedCharacterException;
 
-public interface ScoringService {
+public interface NameScoringService {
 
     /**
      * Computes a single name's score based on the contents of the name.
