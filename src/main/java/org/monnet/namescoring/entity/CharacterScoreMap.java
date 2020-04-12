@@ -16,7 +16,7 @@ public abstract class CharacterScoreMap {
      * @param character The character to lookup
      * @return Optional score of the character
      */
-    public Optional<Integer> getCharacterScore(char character) {
+    public final Optional<Integer> getCharacterScore(char character) {
         String characterAsString = String.valueOf(character);
         return this.getCharacterScore(characterAsString);
     }
@@ -27,7 +27,7 @@ public abstract class CharacterScoreMap {
      * @param character The character to lookup
      * @return Optional score of the character
      */
-    public Optional<Integer> getCharacterScore(String character) {
+    public final Optional<Integer> getCharacterScore(String character) {
         return Optional.ofNullable(this.characterScoreLookupMap.get(character));
     }
 }

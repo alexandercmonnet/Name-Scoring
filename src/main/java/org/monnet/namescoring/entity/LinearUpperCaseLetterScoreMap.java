@@ -6,9 +6,9 @@ import java.util.HashMap;
  * The character to point-value lookup implementation for only upper-case alphabetical letters in a linear
  *  point system starting with A at 1 point and ending with Z at 26 points.
  */
-public class LinearUpperCaseCharacterScoreMap extends CharacterScoreMap {
+public class LinearUpperCaseLetterScoreMap extends CharacterScoreMap {
 
-    public LinearUpperCaseCharacterScoreMap() {
+    public LinearUpperCaseLetterScoreMap() {
 
         this.characterScoreLookupMap = new HashMap<>();
         characterScoreLookupMap.put("A", 1);

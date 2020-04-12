@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.monnet.namescoring.entity.LinearUpperCaseCharacterScoreMap;
+import org.monnet.namescoring.entity.LinearUpperCaseLetterScoreMap;
 import org.monnet.namescoring.entity.Name;
 import org.monnet.namescoring.exception.UnsupportedCharacterException;
 import org.monnet.namescoring.service.NameScoringService;
@@ -42,7 +42,7 @@ public class NameScoringCli {
                 Path namesListFilePath = Paths.get(filePath);
                 if(Files.exists(namesListFilePath)) {
                     List<Name> nameList = getNamesFromFile(namesListFilePath.toFile());
-                    NameScoringService scoringService = new FirstNameScoringServiceImpl(new LinearUpperCaseCharacterScoreMap());
+                    NameScoringService scoringService = new FirstNameScoringServiceImpl(new LinearUpperCaseLetterScoreMap());
                     
                     String scoreString = "";
                     try {

@@ -1,10 +1,12 @@
 package org.monnet.namescoring.exception;
 
+import org.monnet.namescoring.entity.CharacterScoreMap;
+
 import lombok.Getter;
 
 /**
- * This exception expresses that the scoring service was given an unsupported character
- *  and that the input is not valid. 
+ * This exception expresses that the application was given an unsupported character to score. Either
+ *  implement the character in a score map {@link CharacterScoreMap} or alert the user to the un-supported character. 
  */
 @Getter
 public class UnsupportedCharacterException extends Exception {

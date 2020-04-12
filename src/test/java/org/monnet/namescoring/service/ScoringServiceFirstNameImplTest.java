@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.monnet.namescoring.entity.CharacterScoreMap;
-import org.monnet.namescoring.entity.LinearUpperCaseCharacterScoreMap;
+import org.monnet.namescoring.entity.LinearUpperCaseLetterScoreMap;
 import org.monnet.namescoring.entity.Name;
 import org.monnet.namescoring.service.implmentation.FirstNameScoringServiceImpl;
 import org.testng.annotations.BeforeClass;
@@ -20,7 +20,7 @@ public class ScoringServiceFirstNameImplTest {
 
     @BeforeClass
     public void setup() {
-        this.linearUpperCaseCharacterScoreMap = new LinearUpperCaseCharacterScoreMap();
+        this.linearUpperCaseCharacterScoreMap = new LinearUpperCaseLetterScoreMap();
         this.scoringServiceFirstNameImpl = new FirstNameScoringServiceImpl(linearUpperCaseCharacterScoreMap);
     }
 
@@ -77,8 +77,6 @@ public class ScoringServiceFirstNameImplTest {
     @Test 
     public void testComputeNameScore_ThrowsErrorOnUnmappedValue() {
         final Name nameToScore = new Name("LINDA!@");
-
         assertThrows(() -> this.scoringServiceFirstNameImpl.computeNameScore(nameToScore));
     }
-
 }
