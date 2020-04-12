@@ -1,67 +1,55 @@
 package org.monnet.namescoring.service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
 
+import org.monnet.namescoring.entity.CharacterScoreMap;
 import org.monnet.namescoring.entity.Name;
+import org.monnet.namescoring.exception.UnsupportedCharacterException;
 
+/**
+ * This service implementation calculates the 
+ */
 public class ScoringServiceFirstNameImpl implements ScoringService {
 
-    Map<String, Integer> letterScoreMap;
+    /**
+     * An injectable mapping of character to numerical value
+     */
+    private CharacterScoreMap characterPointMap;
 
-    public ScoringServiceFirstNameImpl() {
-
-        //Setting up a default value map of characters to numerical values.
-        this.letterScoreMap = new HashMap<>();
-        this.letterScoreMap.put("A", 1);
-        this.letterScoreMap.put("B", 2);
-        this.letterScoreMap.put("C", 3);
-        this.letterScoreMap.put("D", 4);
-        this.letterScoreMap.put("E", 5);
-        this.letterScoreMap.put("F", 6);
-        this.letterScoreMap.put("G", 7);
-        this.letterScoreMap.put("H", 8);
-        this.letterScoreMap.put("I", 9);
-        this.letterScoreMap.put("J", 10);
-        this.letterScoreMap.put("K", 11);
-        this.letterScoreMap.put("L", 12);
-        this.letterScoreMap.put("M", 13);
-        this.letterScoreMap.put("N", 14);
-        this.letterScoreMap.put("O", 15);
-        this.letterScoreMap.put("P", 16);
-        this.letterScoreMap.put("Q", 17);
-        this.letterScoreMap.put("R", 18);
-        this.letterScoreMap.put("S", 19);
-        this.letterScoreMap.put("T", 20);
-        this.letterScoreMap.put("U", 21);
-        this.letterScoreMap.put("V", 22);
-        this.letterScoreMap.put("W", 23);
-        this.letterScoreMap.put("X", 24);
-        this.letterScoreMap.put("Y", 25);
-        this.letterScoreMap.put("Z", 26);
-    }
-
-    public ScoringServiceFirstNameImpl(Map<String, Integer> letterScoreMap) {
-        this.letterScoreMap = letterScoreMap;
+    public ScoringServiceFirstNameImpl(CharacterScoreMap characterPointMap) {
+        this.characterPointMap = characterPointMap;
     }
 
 	@Override
-	public Integer computeNameScore(Name name) {
+	public Integer computeNameScore(Name name) throws UnsupportedCharacterException {
 
         String firstName = name.getFirstName();
         Integer runningTally = 0;
 
-        for(int i = 0; i < firstName.length(); i++) {
-            runningTally += this.letterScoreMap.computeIfAbsent(firstName.substring(i, i + 1), key -> { throw new  RuntimeException("Unsupported Key: " + key); });
+        for (char character : firstName.toCharArray()){
+            Optional<Integer> characterScore = this.characterPointMap.getCharacterScore(character);
+            if(characterScore.isPresent()) {
+                runningTally += characterScore.get();
+            } else {
+                throw new UnsupportedCharacterException(character);
+            }
         }
         
-		return runningTally;
+        return runningTally;
 	}
 
 	@Override
-	public Integer computeNameListScore(List<Name> namesList) {
-		return 0;
+	public Integer computeNameListScore(List<Name> namesList) throws UnsupportedCharacterException {
+
+        Integer runningTally = 0;
+        int iteratorPosition = 1;
+        for(Name name : namesList){
+            runningTally += this.computeNameScore(name) * iteratorPosition;
+            iteratorPosition++;
+        }
+        
+		return runningTally;
 	}
 
     
