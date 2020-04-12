@@ -3,7 +3,8 @@
 ## Command Line Arguments
 | Name | Flag | Description |
 |------|------|-------------|
-|Input File | -f, --file | The input file containing the names to score as a comma-delimited list |
+|Input File | --file | The input file containing the names to score as a comma-delimited list |
+|Help | --help | outputs available commands and information about them |
 
 # Exercise Instructions
 Create a command line utility that will compute a score for a list of first names.

@@ -10,6 +10,9 @@ import org.monnet.namescoring.service.NameScoringService;
 
 /**
  * This service implementation calculates the score for names based on their {@link Name#getFirstName()} value
+ * and by multiplying the score for the first name by the object's position in the list (the list starts at 1).
+ * This implementation allows for a {@link CharacterScoreMap} object to be passed in to provide a score value to 
+ * each letter in the first name field.
  */
 public class FirstNameScoringServiceImpl implements NameScoringService {
 

@@ -7,8 +7,8 @@ import org.monnet.namescoring.entity.Name;
 import org.monnet.namescoring.service.NameSortingService;
 
 /**
- * Name sorting service that implements Collections.sort to sort the
- *  name list in ascending order based on the first name.
+ * Name sorting service that implements Collections.sort to sort the name
+ *  list in ascending order based on the {@link Name#getFirstName()} value.
  */
 public class AscFirstNameSortingServiceImpl implements NameSortingService {
 
