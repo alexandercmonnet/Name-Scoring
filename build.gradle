@@ -33,11 +33,11 @@ dependencies {
 }
 
 application {
-    mainClassName = 'org.monnet.namescoring.application.NameScoring'
+    mainClassName = 'org.monnet.namescoring.application.NameScoringCli'
 }
 
 run {
-    args '-f', './sample-input/testNameFile.txt'
+    args '--file', './sample-input/names.txt'
 }
 
 test {
