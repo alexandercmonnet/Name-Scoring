@@ -10,7 +10,8 @@ import org.monnet.namescoring.service.NameSortingService;
 import lombok.AllArgsConstructor;
 
 /**
- * This main driver for the NameScoring application.
+ * This class acts as the main driver for the name scoring application by tieing in a
+ *  sorting algorithm before calculating the score of the names.
  */
 @AllArgsConstructor
 public class NameScoring {
@@ -22,7 +23,5 @@ public class NameScoring {
         this.sortingService.sortNameList(namesList);
         return this.scoringService.computeNameListScore(namesList);
     }
-    
-
 }
 

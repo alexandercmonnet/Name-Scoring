@@ -15,6 +15,7 @@ import org.monnet.namescoring.entity.LinearUpperCaseLetterScoreMap;
 import org.monnet.namescoring.entity.Name;
 import org.monnet.namescoring.exception.UnsupportedCharacterException;
 import org.monnet.namescoring.service.NameScoringService;
+import org.monnet.namescoring.service.implmentation.AscFirstNameSortingServiceImpl;
 import org.monnet.namescoring.service.implmentation.FirstNameScoringServiceImpl;
 
 /**
@@ -38,37 +39,54 @@ public class NameScoringCli {
         final String outputString;
         switch(actionToTake) {
             case PARSE_NAMES_FROM_FILE:
+
                 String filePath = argsList.get(argsList.indexOf(FILE_FLAG) + 1);
                 Path namesListFilePath = Paths.get(filePath);
+                
                 if(Files.exists(namesListFilePath)) {
                     List<Name> nameList = getNamesFromFile(namesListFilePath.toFile());
-                    NameScoringService scoringService = new FirstNameScoringServiceImpl(new LinearUpperCaseLetterScoreMap());
-                    
-                    String scoreString = "";
-                    try {
-                        Integer score = scoringService.computeNameListScore(nameList);
-                        scoreString = "List score is: " + score;
-					} catch (UnsupportedCharacterException e) {
-						scoreString = "Error: You entered an unsupported character.\n" + e.getMessage();
-                    }
-                    
-                    outputString = scoreString;
+                    outputString = runScoringWithFirstNameAlphabeticOrder(nameList);
                 } else {
                     outputString = String.format("Error: %s does not exist.",  namesListFilePath.toString()); 
                 }
             break;
 
             case PRINT_HELP:
+
                 outputString = String.format("The valid commands for this program are as follows:\n%s | prints help output.\n%s | points to a csv list of names to score.", HELP_FLAG, FILE_FLAG);
             break;
 
             //BAD ARGS and undefined have the same output
             case REPORT_BAD_ARGS:
             default:
+
                 outputString = String.format("The arguments you submitted are invalid. Run the program again with %s to see valid options. Invalid arguments: %s", HELP_FLAG, argsList);
         }
 
         System.out.println(outputString);
+    }
+
+    /**
+     * Run the scoring application with the following attributes:
+     * 1. names are sorted alphabetically by first name in ascending order
+     * 2. letters in names are scored linearly starting with A = 1 
+     * @param nameList the list of names to sort and score
+     * @return The output string containing the score
+     */
+    private static String runScoringWithFirstNameAlphabeticOrder(List<Name> nameList) {
+
+        NameScoringService scoringService = new FirstNameScoringServiceImpl(new LinearUpperCaseLetterScoreMap());
+        NameScoring nameScoring = new NameScoring(scoringService, new AscFirstNameSortingServiceImpl());
+        
+        
+        String scoreString = "";
+        try {
+            Integer score = nameScoring.calculateScore(nameList);
+            scoreString = "List score is: " + score;
+        } catch (UnsupportedCharacterException e) {
+            scoreString = "Error: You entered an unsupported character.\n" + e.getMessage();
+        }
+        return scoreString;
     }
 
     /**
@@ -107,7 +125,6 @@ public class NameScoringCli {
             String line = "";    
             while((line = reader.readLine()) != null) {
 			    for(String name : line.split(",")) {
-                    //TODO can this be extended for first and last names?
                     String nameWithoutSurroundingQuotes = name.substring(1, name.length() - 1);
                     names.add(new Name(nameWithoutSurroundingQuotes));
                 } 
