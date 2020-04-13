@@ -10,8 +10,9 @@ import org.monnet.namescoring.service.NameSortingService;
 import lombok.AllArgsConstructor;
 
 /**
- * This class acts as the main driver for the name scoring application by tieing in a
- *  sorting algorithm before calculating the score of the names.
+ * This class acts as the programmatic entry point to the Name Scoring
+ * application and can be consumed by CLI, Web Service, or other such
+ * entry points.
  */
 @AllArgsConstructor
 public class NameScoring {
