@@ -15,8 +15,8 @@ import org.monnet.namescoring.entity.CharacterScoreMap;
 import org.monnet.namescoring.entity.LinearUpperCaseLetterScoreMap;
 import org.monnet.namescoring.entity.Name;
 import org.monnet.namescoring.exception.UnsupportedCharacterException;
-import org.monnet.namescoring.service.NameScoringService;
-import org.monnet.namescoring.service.NameSortingService;
+import org.monnet.namescoring.service.ScoringService;
+import org.monnet.namescoring.service.SortingService;
 import org.monnet.namescoring.service.implmentation.AlphabeticFirstNameSortingServiceImpl;
 import org.monnet.namescoring.service.implmentation.FirstNameScoringServiceImpl;
 
@@ -96,8 +96,8 @@ public class NameScoringCli {
      */
     private static String calculateScoreWithFirstNamesAndLinearAlphabeticScore(List<Name> nameList) {
         CharacterScoreMap linearUpperCaseLetterScoreMap = new LinearUpperCaseLetterScoreMap();
-        NameScoringService firstNameScoringImpl = new FirstNameScoringServiceImpl(linearUpperCaseLetterScoreMap);
-        NameSortingService alphabeticFirstNameSortingImpl = new AlphabeticFirstNameSortingServiceImpl();
+        ScoringService firstNameScoringImpl = new FirstNameScoringServiceImpl(linearUpperCaseLetterScoreMap);
+        SortingService alphabeticFirstNameSortingImpl = new AlphabeticFirstNameSortingServiceImpl();
         NameScoring nameScoring = new NameScoring(firstNameScoringImpl, alphabeticFirstNameSortingImpl);
 
         String scoreString;

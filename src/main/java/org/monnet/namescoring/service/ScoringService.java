@@ -6,7 +6,7 @@ import org.monnet.namescoring.entity.Name;
 import org.monnet.namescoring.exception.UnsupportedCharacterException;
 
 /**
- * The NameScoringService interface should be implemented by any class that
+ * The ScoringService interface should be implemented by any class that
  *  will be used to provide a score based on a list of names. 
  * 
  * This interface's purpose is to provide a consistent method signature for various implementations of 
@@ -14,7 +14,7 @@ import org.monnet.namescoring.exception.UnsupportedCharacterException;
  *  score {@link Name} objects based on particular member fields such as {@link Name#getFirstName()} or
  *  by the object's position in the list. 
  */
-public interface NameScoringService {
+public interface ScoringService {
 
     /**
      * Computes a single name's score based on the contents of the name.

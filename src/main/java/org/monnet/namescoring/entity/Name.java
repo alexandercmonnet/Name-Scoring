@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
- * A class representing names.
+ * A class representing the name of a person.
  */
 @Data
 @AllArgsConstructor

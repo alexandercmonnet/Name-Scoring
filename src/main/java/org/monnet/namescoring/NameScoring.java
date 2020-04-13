@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.monnet.namescoring.entity.Name;
 import org.monnet.namescoring.exception.UnsupportedCharacterException;
-import org.monnet.namescoring.service.NameScoringService;
-import org.monnet.namescoring.service.NameSortingService;
+import org.monnet.namescoring.service.ScoringService;
+import org.monnet.namescoring.service.SortingService;
 
 import lombok.AllArgsConstructor;
 
@@ -17,8 +17,8 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class NameScoring {
 
-    private NameScoringService scoringService;
-    private NameSortingService sortingService;
+    private ScoringService scoringService;
+    private SortingService sortingService;
 
     public Integer calculateScore(List<Name> namesList) throws UnsupportedCharacterException {
         this.sortingService.sortNameList(namesList);

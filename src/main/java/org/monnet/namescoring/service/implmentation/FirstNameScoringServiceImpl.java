@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.monnet.namescoring.entity.CharacterScoreMap;
 import org.monnet.namescoring.entity.Name;
 import org.monnet.namescoring.exception.UnsupportedCharacterException;
-import org.monnet.namescoring.service.NameScoringService;
+import org.monnet.namescoring.service.ScoringService;
 
 import lombok.AllArgsConstructor;
 
@@ -17,7 +17,7 @@ import lombok.AllArgsConstructor;
  * each letter in the first name field.
  */
 @AllArgsConstructor
-public class FirstNameScoringServiceImpl implements NameScoringService {
+public class FirstNameScoringServiceImpl implements ScoringService {
 
     /**
      * A mapping of characters to numerical values

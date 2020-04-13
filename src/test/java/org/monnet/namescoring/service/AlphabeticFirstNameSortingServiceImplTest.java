@@ -12,7 +12,7 @@ import org.testng.annotations.Test;
 
 public class AlphabeticFirstNameSortingServiceImplTest {
 
-    private NameSortingService nameSortingService;
+    private SortingService nameSortingService;
 
     @BeforeClass
     public void setup() {

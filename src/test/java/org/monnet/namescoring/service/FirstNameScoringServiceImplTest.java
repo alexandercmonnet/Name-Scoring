@@ -15,7 +15,7 @@ import org.testng.annotations.Test;
 
 public class FirstNameScoringServiceImplTest {
 
-    private NameScoringService scoringServiceFirstNameImpl;
+    private ScoringService scoringServiceFirstNameImpl;
     private CharacterScoreMap linearUpperCaseCharacterScoreMap;
 
     @BeforeClass

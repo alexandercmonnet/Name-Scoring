@@ -4,13 +4,13 @@ import java.util.Collections;
 import java.util.List;
 
 import org.monnet.namescoring.entity.Name;
-import org.monnet.namescoring.service.NameSortingService;
+import org.monnet.namescoring.service.SortingService;
 
 /**
  * Name sorting service that implements Collections.sort to sort the name
  *  list in alphabetic order based on the {@link Name#getFirstName()} value.
  */
-public class AlphabeticFirstNameSortingServiceImpl implements NameSortingService {
+public class AlphabeticFirstNameSortingServiceImpl implements SortingService {
 
     @Override
     public void sortNameList(List<Name> namesList) {
