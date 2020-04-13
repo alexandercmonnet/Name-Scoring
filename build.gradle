@@ -33,7 +33,7 @@ dependencies {
 }
 
 application {
-    mainClassName = 'org.monnet.namescoring.application.NameScoringCli'
+    mainClassName = 'org.monnet.namescoring.NameScoringCli'
 }
 
 run {
@@ -52,3 +52,10 @@ jacocoTestReport {
     }
 }
 
+jar {
+  manifest {
+    attributes(
+      'Main-Class': 'org.monnet.namescoring.NameScoringCli'
+    )
+  }
+}
