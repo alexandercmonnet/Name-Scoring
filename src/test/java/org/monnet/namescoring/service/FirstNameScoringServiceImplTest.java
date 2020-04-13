@@ -13,7 +13,7 @@ import org.monnet.namescoring.service.implmentation.FirstNameScoringServiceImpl;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-public class ScoringServiceFirstNameImplTest {
+public class FirstNameScoringServiceImplTest {
 
     private NameScoringService scoringServiceFirstNameImpl;
     private CharacterScoreMap linearUpperCaseCharacterScoreMap;

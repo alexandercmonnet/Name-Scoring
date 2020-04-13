@@ -6,17 +6,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.monnet.namescoring.entity.Name;
-import org.monnet.namescoring.service.implmentation.AscFirstNameSortingServiceImpl;
+import org.monnet.namescoring.service.implmentation.AlphabeticFirstNameSortingServiceImpl;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-public class AscFirstNameSortingServiceImplTest {
+public class AlphabeticFirstNameSortingServiceImplTest {
 
     private NameSortingService nameSortingService;
 
     @BeforeClass
     public void setup() {
-        this.nameSortingService = new AscFirstNameSortingServiceImpl();
+        this.nameSortingService = new AlphabeticFirstNameSortingServiceImpl();
     }
 
     @Test
