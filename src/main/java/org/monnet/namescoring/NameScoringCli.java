@@ -11,11 +11,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.monnet.namescoring.entity.CharacterScoreMap;
 import org.monnet.namescoring.entity.LinearUpperCaseLetterScoreMap;
 import org.monnet.namescoring.entity.Name;
 import org.monnet.namescoring.exception.UnsupportedCharacterException;
 import org.monnet.namescoring.service.NameScoringService;
-import org.monnet.namescoring.service.implmentation.AscFirstNameSortingServiceImpl;
+import org.monnet.namescoring.service.NameSortingService;
+import org.monnet.namescoring.service.implmentation.AlphabeticFirstNameSortingServiceImpl;
 import org.monnet.namescoring.service.implmentation.FirstNameScoringServiceImpl;
 
 /**
@@ -23,9 +25,13 @@ import org.monnet.namescoring.service.implmentation.FirstNameScoringServiceImpl;
  */
 public class NameScoringCli {
 
-    private static final String FILE_FLAG = "--file";
-    private static final String HELP_FLAG = "--help";
+    private static final String ARG_FLAG_FILE = "--file";
+    private static final String ARG_FLAG_HELP = "--help";
 
+    /**
+     * Enum list of actions to take based
+     *  on the CLI arguments
+     */
     protected enum Action {
         PARSE_NAMES_FROM_FILE,
         PRINT_HELP,
@@ -37,30 +43,45 @@ public class NameScoringCli {
         List<String> argsList = Arrays.asList(args);
         Action actionToTake = digestArgs(argsList);
         final String outputString;
+
         switch(actionToTake) {
             case PARSE_NAMES_FROM_FILE:
-
-                String filePath = argsList.get(argsList.indexOf(FILE_FLAG) + 1);
+                String filePath = argsList.get(argsList.indexOf(ARG_FLAG_FILE) + 1);
                 Path namesListFilePath = Paths.get(filePath);
+
+                boolean wasFileSuccessfullyRead = false;
+                String scoreString = "";
                 
                 if(Files.exists(namesListFilePath)) {
-                    List<Name> nameList = getNamesFromFile(namesListFilePath.toFile());
-                    outputString = runScoringWithFirstNameAlphabeticOrder(nameList);
+
+                    List<Name> nameList = new ArrayList<>();
+
+                    try {
+                        nameList = getFirstNamesFromFile(namesListFilePath.toFile());
+                        wasFileSuccessfullyRead = true;
+                    } catch (IOException ioException) {
+                        scoreString = String.format("Error: Unable to read the file: %s",  namesListFilePath.toString()); 
+                    }
+                    
+                    if(wasFileSuccessfullyRead) {
+                        scoreString = calculateScoreWithFirstNamesAndLinearAlphabeticScore(nameList);
+                    }
                 } else {
-                    outputString = String.format("Error: %s does not exist.",  namesListFilePath.toString()); 
+                    scoreString = String.format("Error: The file %s does not exist.",  namesListFilePath.toString()); 
                 }
+
+                outputString = scoreString; 
             break;
 
             case PRINT_HELP:
-
-                outputString = String.format("The valid commands for this program are as follows:\n%s | prints help output.\n%s | points to a csv list of names to score.", HELP_FLAG, FILE_FLAG);
+                outputString = String.format("The valid commands for this program are as follows:\n%s | prints help output.\n%s | followed by a file path to a list of names to score.", ARG_FLAG_HELP, ARG_FLAG_FILE);
             break;
 
             //BAD ARGS and undefined have the same output
             case REPORT_BAD_ARGS:
             default:
-
-                outputString = String.format("The arguments you submitted are invalid. Run the program again with %s to see valid options. Invalid arguments: %s", HELP_FLAG, argsList);
+                outputString = String.format("The arguments you submitted are invalid. Run the program again with %s to see valid options. Invalid arguments: %s", ARG_FLAG_HELP, argsList);
+            break;
         }
 
         System.out.println(outputString);
@@ -70,22 +91,23 @@ public class NameScoringCli {
      * Run the scoring application with the following attributes:
      * 1. names are sorted alphabetically by first name in ascending order
      * 2. letters in names are scored linearly starting with A = 1 
-     * @param nameList the list of names to sort and score
+     * @param namesListFilePath the path to the list of names to sort and score
      * @return The output string containing the score
      */
-    private static String runScoringWithFirstNameAlphabeticOrder(List<Name> nameList) {
+    private static String calculateScoreWithFirstNamesAndLinearAlphabeticScore(List<Name> nameList) {
+        CharacterScoreMap linearUpperCaseLetterScoreMap = new LinearUpperCaseLetterScoreMap();
+        NameScoringService firstNameScoringImpl = new FirstNameScoringServiceImpl(linearUpperCaseLetterScoreMap);
+        NameSortingService alphabeticFirstNameSortingImpl = new AlphabeticFirstNameSortingServiceImpl();
+        NameScoring nameScoring = new NameScoring(firstNameScoringImpl, alphabeticFirstNameSortingImpl);
 
-        NameScoringService scoringService = new FirstNameScoringServiceImpl(new LinearUpperCaseLetterScoreMap());
-        NameScoring nameScoring = new NameScoring(scoringService, new AscFirstNameSortingServiceImpl());
-        
-        
-        String scoreString = "";
+        String scoreString;
         try {
             Integer score = nameScoring.calculateScore(nameList);
-            scoreString = "List score is: " + score;
-        } catch (UnsupportedCharacterException e) {
-            scoreString = "Error: You entered an unsupported character.\n" + e.getMessage();
+            scoreString = score.toString();
+        } catch (UnsupportedCharacterException unsupportedCharacterException) {
+            scoreString = "Error: You entered an unsupported character.\n" + unsupportedCharacterException.getMessage();
         }
+
         return scoreString;
     }
 
@@ -97,12 +119,12 @@ public class NameScoringCli {
         
         Action actionToTake = Action.REPORT_BAD_ARGS;
 
-        if(argsList.contains(HELP_FLAG)) {
+        if(argsList.contains(ARG_FLAG_HELP)) {
             actionToTake = Action.PRINT_HELP;
-        } else if(argsList.contains(FILE_FLAG)) {
+        } else if(argsList.contains(ARG_FLAG_FILE)) {
 
-            Integer indexOfFileArg = argsList.indexOf(FILE_FLAG);
-            if(indexOfFileArg < argsList.size() - 1){
+            Integer indexOfFileArg = argsList.indexOf(ARG_FLAG_FILE);
+            if(indexOfFileArg < argsList.size() - 1) {
                 actionToTake = Action.PARSE_NAMES_FROM_FILE;
             } 
         } 
@@ -111,31 +133,26 @@ public class NameScoringCli {
     }
 
     /**
-     * A small function to extract names from a comma-delimited file and to remove extraneous "" from
+     * A small function to extract first names from a comma-delimited file and to remove extraneous "" from
      *  around the names.
      * @param file
      * @return
+     * @throws IOException
      */
-    private static List<Name> getNamesFromFile(File file) {
+    private static List<Name> getFirstNamesFromFile(File file) throws IOException {
         List<Name> names = new ArrayList<>();
 
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(file));
+        BufferedReader reader = new BufferedReader(new FileReader(file));
 
-            String line = "";    
-            while((line = reader.readLine()) != null) {
-			    for(String name : line.split(",")) {
-                    String nameWithoutSurroundingQuotes = name.substring(1, name.length() - 1);
-                    names.add(new Name(nameWithoutSurroundingQuotes));
-                } 
-            }
-
-            reader.close();
-		} catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Failed to read from file. ");
-            names = new ArrayList<>();
+        String line = "";    
+        while((line = reader.readLine()) != null) {
+            for(String name : line.split(",")) {
+                String nameWithoutSurroundingQuotes = name.substring(1, name.length() - 1);
+                names.add(new Name(nameWithoutSurroundingQuotes));
+            } 
         }
+
+        reader.close();
 
         return names;
     }

@@ -8,9 +8,9 @@ import org.monnet.namescoring.service.NameSortingService;
 
 /**
  * Name sorting service that implements Collections.sort to sort the name
- *  list in ascending order based on the {@link Name#getFirstName()} value.
+ *  list in alphabetic order based on the {@link Name#getFirstName()} value.
  */
-public class AscFirstNameSortingServiceImpl implements NameSortingService {
+public class AlphabeticFirstNameSortingServiceImpl implements NameSortingService {
 
     @Override
     public void sortNameList(List<Name> namesList) {
