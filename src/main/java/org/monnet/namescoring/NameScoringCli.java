@@ -1,4 +1,4 @@
-package org.monnet.namescoring.application;
+package org.monnet.namescoring;
 
 import java.io.BufferedReader;
 import java.io.File;
