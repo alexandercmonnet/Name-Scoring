@@ -54,7 +54,4 @@ public class FirstNameScoringServiceImpl implements ScoringService {
         
 		return runningTally;
 	}
-
-    
-
 }
