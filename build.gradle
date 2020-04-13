@@ -36,10 +36,6 @@ application {
     mainClassName = 'org.monnet.namescoring.NameScoringCli'
 }
 
-run {
-    args '--file', './sample-input/names.txt'
-}
-
 test {
 	useTestNG()
     finalizedBy jacocoTestReport
