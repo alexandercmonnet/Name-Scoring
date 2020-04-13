@@ -1,10 +1,23 @@
 # Name-Scoring
+This project is a coding challenge. The instructions for the challenge are included in the 'Exercise Instructions' section below.
 
+# Running the Application
 ## Command Line Arguments
+
 | Name | Flag | Description |
 |------|------|-------------|
 |Input File | --file | The input file containing the names to score as a comma-delimited list |
 |Help | --help | outputs available commands and information about them |
+
+## Running With Gradle
+To run the application with gradle, you'll need to have the project on a local system with Java installed and you'll need to enter the following command in the top level directory of this project: ```./gradlew run```
+
+If you want to pass arguments to the CLI application via gradle, you can do so with: ```./gradlew run --args="--help"``` or if you want to pass in the path to the text file: ```./gradlew run --args="--file ./sample-input/names.txt"```
+
+## Running the Application as a JAR File
+The application can be run without gradle as a simple jar file, however you must build it using gradle. The gradle command to build the JAR file is: ```./gradlew build``` 
+
+Once the application is built, the JAR file can be located in the build/libs/ directory. You can run the application as a JAR file from the top-level of this project with the following command: ```java -jar build/libs/name-scoring-*.jar --help```
 
 # Exercise Instructions
 Create a command line utility that will compute a score for a list of first names.
