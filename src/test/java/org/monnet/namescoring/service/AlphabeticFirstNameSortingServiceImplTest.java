@@ -22,12 +22,12 @@ public class AlphabeticFirstNameSortingServiceImplTest {
     @Test
     public void testComputeNameListScore_TwoNamesSwap() throws Exception {
         final List<Name> namesToSort = new ArrayList<>(); 
-        namesToSort.add(new Name("MARY"));
-        namesToSort.add(new Name("LINDA"));
+        namesToSort.add(Name.builder().firstName("MARY").build());
+        namesToSort.add(Name.builder().firstName("LINDA").build());
         
         final List<Name> expectedNameList = new ArrayList<>(); 
-        expectedNameList.add(new Name("LINDA"));
-        expectedNameList.add(new Name("MARY"));
+        expectedNameList.add(Name.builder().firstName("LINDA").build());
+        expectedNameList.add(Name.builder().firstName("MARY").build());
 
         nameSortingService.sortNameList(namesToSort);
         assertEquals(namesToSort, expectedNameList);
@@ -36,12 +36,12 @@ public class AlphabeticFirstNameSortingServiceImplTest {
     @Test
     public void testComputeNameListScore_TwoNamesSameOrder() throws Exception {
         final List<Name> namesToSort = new ArrayList<>(); 
-        namesToSort.add(new Name("LINDA"));
-        namesToSort.add(new Name("MARY"));
+        namesToSort.add(Name.builder().firstName("LINDA").build());
+        namesToSort.add(Name.builder().firstName("MARY").build());
         
         final List<Name> expectedNameList = new ArrayList<>(); 
-        expectedNameList.add(new Name("LINDA"));
-        expectedNameList.add(new Name("MARY"));
+        expectedNameList.add(Name.builder().firstName("LINDA").build());
+        expectedNameList.add(Name.builder().firstName("MARY").build());
 
         nameSortingService.sortNameList(namesToSort);
         assertEquals(namesToSort, expectedNameList);
@@ -50,26 +50,26 @@ public class AlphabeticFirstNameSortingServiceImplTest {
     @Test
     public void testComputeNameListScore_ExampleList() throws Exception {
         final List<Name> namesToSort = new ArrayList<>(); 
-        namesToSort.add(new Name("MARY"));  
-        namesToSort.add(new Name("PATRICIA"));
-        namesToSort.add(new Name("LINDA"));
-        namesToSort.add(new Name("BARBARA"));
-        namesToSort.add(new Name("VINCENZO"));
-        namesToSort.add(new Name("SHON"));
-        namesToSort.add(new Name("LYNWOOD"));
-        namesToSort.add(new Name("JERE"));
-        namesToSort.add(new Name("HAI"));
+        namesToSort.add(Name.builder().firstName("MARY").build());  
+        namesToSort.add(Name.builder().firstName("PATRICIA").build());
+        namesToSort.add(Name.builder().firstName("LINDA").build());
+        namesToSort.add(Name.builder().firstName("BARBARA").build());
+        namesToSort.add(Name.builder().firstName("VINCENZO").build());
+        namesToSort.add(Name.builder().firstName("SHON").build());
+        namesToSort.add(Name.builder().firstName("LYNWOOD").build());
+        namesToSort.add(Name.builder().firstName("JERE").build());
+        namesToSort.add(Name.builder().firstName("HAI").build());
         
         final List<Name> expectedNameList = new ArrayList<>(); 
-        expectedNameList.add(new Name("BARBARA"));
-        expectedNameList.add(new Name("HAI"));
-        expectedNameList.add(new Name("JERE"));
-        expectedNameList.add(new Name("LINDA"));
-        expectedNameList.add(new Name("LYNWOOD"));
-        expectedNameList.add(new Name("MARY"));
-        expectedNameList.add(new Name("PATRICIA"));
-        expectedNameList.add(new Name("SHON"));
-        expectedNameList.add(new Name("VINCENZO"));
+        expectedNameList.add(Name.builder().firstName("BARBARA").build());
+        expectedNameList.add(Name.builder().firstName("HAI").build());
+        expectedNameList.add(Name.builder().firstName("JERE").build());
+        expectedNameList.add(Name.builder().firstName("LINDA").build());
+        expectedNameList.add(Name.builder().firstName("LYNWOOD").build());
+        expectedNameList.add(Name.builder().firstName("MARY").build());
+        expectedNameList.add(Name.builder().firstName("PATRICIA").build());
+        expectedNameList.add(Name.builder().firstName("SHON").build());
+        expectedNameList.add(Name.builder().firstName("VINCENZO").build());
 
         nameSortingService.sortNameList(namesToSort);
         assertEquals(namesToSort, expectedNameList);

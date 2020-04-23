@@ -1,15 +1,15 @@
 package org.monnet.namescoring.entity;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 /**
  * A class representing the name of a person.
  */
 @Data
-@AllArgsConstructor
+@Builder
 public class Name {
 
     private String firstName;
-    
+    private String lastName;
 }

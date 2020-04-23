@@ -146,9 +146,38 @@ public class NameScoringCli {
 
         String line = "";    
         while((line = reader.readLine()) != null) {
-            for(String name : line.split(",")) {
-                String nameWithoutSurroundingQuotes = name.substring(1, name.length() - 1);
-                names.add(new Name(nameWithoutSurroundingQuotes));
+            for(String nameString : line.split(",")) {
+                String nameWithoutSurroundingQuotes = nameString.substring(1, nameString.length() - 1);
+                Name name = Name.builder().firstName(nameWithoutSurroundingQuotes).build();
+                names.add(name);
+            } 
+        }
+
+        reader.close();
+
+        return names;
+    }
+
+    /**
+     * A small function to extract first names from a comma-delimited file and to remove extraneous "" from
+     *  around the names.
+     * @param file
+     * @return
+     * @throws IOException
+     */
+    private static List<Name> getFirstAndLastNamesFromFile(File file) throws IOException {
+        List<Name> names = new ArrayList<>();
+
+        BufferedReader reader = new BufferedReader(new FileReader(file));
+
+        String line = "";    
+        while((line = reader.readLine()) != null) {
+            for(String nameString : line.split(",")) {
+                String nameWithoutSurroundingQuotes = nameString.substring(1, nameString.length() - 1);
+                String[] nameSplitBySpace = nameWithoutSurroundingQuotes.split(" ");
+
+                Name name = Name.builder().firstName(nameSplitBySpace[0]).lastName(nameSplitBySpace[0]).build();
+                names.add(name);
             } 
         }
 

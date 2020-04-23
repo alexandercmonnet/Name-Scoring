@@ -26,7 +26,7 @@ public class FirstNameScoringServiceImplTest {
 
     @Test
     public void testComputeNameScore_ExampleLinda() throws Exception {
-        final Name nameToScore = new Name("LINDA");
+        final Name nameToScore = Name.builder().firstName("LINDA").build();
         final Integer expectedResult = 40; // 12 + 9 + 14 + 4 + 1 = 40
         final Integer actualResult = this.scoringServiceFirstNameImpl.computeNameScore(nameToScore);
 
@@ -35,7 +35,7 @@ public class FirstNameScoringServiceImplTest {
 
     @Test
     public void testComputeNameScore_ExampleMary() throws Exception {
-        final Name nameToScore = new Name("MARY");
+        final Name nameToScore = Name.builder().firstName("MARY").build();
         final Integer expectedResult = 57; // 13 + 1 + 18 + 25 = 57
         final Integer actualResult = this.scoringServiceFirstNameImpl.computeNameScore(nameToScore);
 
@@ -46,8 +46,8 @@ public class FirstNameScoringServiceImplTest {
     @Test
     public void testComputeNameListScore_SimpleList() throws Exception {
         final List<Name> namesToScore = new ArrayList<>(); 
-        namesToScore.add(new Name("LINDA"));
-        namesToScore.add(new Name("MARY"));
+        namesToScore.add(Name.builder().firstName("LINDA").build());
+        namesToScore.add(Name.builder().firstName("MARY").build());
 
         final Integer expectedResult = 154; //(40 * 1) + (57 * 2) = 137
         final Integer actualResult = this.scoringServiceFirstNameImpl.computeNameListScore(namesToScore);
@@ -58,15 +58,15 @@ public class FirstNameScoringServiceImplTest {
     @Test
     public void testComputeNameListScore_WithAscSortedSuppliedExampleList() throws Exception {
         final List<Name> namesToScore = new ArrayList<>(); 
-        namesToScore.add(new Name("BARBARA"));
-        namesToScore.add(new Name("HAI"));
-        namesToScore.add(new Name("JERE"));
-        namesToScore.add(new Name("LINDA"));
-        namesToScore.add(new Name("LYNWOOD"));
-        namesToScore.add(new Name("MARY"));
-        namesToScore.add(new Name("PATRICIA"));
-        namesToScore.add(new Name("SHON"));
-        namesToScore.add(new Name("VINCENZO"));
+        namesToScore.add(Name.builder().firstName("BARBARA").build());
+        namesToScore.add(Name.builder().firstName("HAI").build());
+        namesToScore.add(Name.builder().firstName("JERE").build());
+        namesToScore.add(Name.builder().firstName("LINDA").build());
+        namesToScore.add(Name.builder().firstName("LYNWOOD").build());
+        namesToScore.add(Name.builder().firstName("MARY").build());
+        namesToScore.add(Name.builder().firstName("PATRICIA").build());
+        namesToScore.add(Name.builder().firstName("SHON").build());
+        namesToScore.add(Name.builder().firstName("VINCENZO").build());
 
         final Integer expectedResult = 3194;
         final Integer actualResult = this.scoringServiceFirstNameImpl.computeNameListScore(namesToScore);
@@ -76,7 +76,7 @@ public class FirstNameScoringServiceImplTest {
 
     @Test 
     public void testComputeNameScore_ThrowsErrorOnUnmappedValue() {
-        final Name nameToScore = new Name("LINDA!@");
+        final Name nameToScore = Name.builder().firstName("LINDA!@").build();
         assertThrows(() -> this.scoringServiceFirstNameImpl.computeNameScore(nameToScore));
     }
 }
