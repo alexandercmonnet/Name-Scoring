@@ -1,6 +1,6 @@
 package org.monnet.namescoring.exception;
 
-import org.monnet.namescoring.entity.CharacterScoreMap;
+import org.monnet.namescoring.pointmap.CharacterScoreMap;
 
 /**
  * This exception expresses that the application was given an unsupported character to score. Either

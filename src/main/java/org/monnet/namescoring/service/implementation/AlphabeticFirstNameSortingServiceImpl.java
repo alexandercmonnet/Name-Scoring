@@ -1,4 +1,4 @@
-package org.monnet.namescoring.service.implmentation;
+package org.monnet.namescoring.service.implementation;
 
 import java.util.Collections;
 import java.util.List;

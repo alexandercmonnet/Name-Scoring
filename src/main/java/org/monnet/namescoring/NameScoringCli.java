@@ -11,14 +11,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.monnet.namescoring.entity.CharacterScoreMap;
-import org.monnet.namescoring.entity.LinearUpperCaseLetterScoreMap;
 import org.monnet.namescoring.entity.Name;
 import org.monnet.namescoring.exception.UnsupportedCharacterException;
+import org.monnet.namescoring.pointmap.CharacterScoreMap;
+import org.monnet.namescoring.pointmap.LinearUpperCaseLetterScoreMap;
 import org.monnet.namescoring.service.ScoringService;
 import org.monnet.namescoring.service.SortingService;
-import org.monnet.namescoring.service.implmentation.AlphabeticFirstNameSortingServiceImpl;
-import org.monnet.namescoring.service.implmentation.FirstNameScoringServiceImpl;
+import org.monnet.namescoring.service.implementation.AlphabeticFirstNameSortingServiceImpl;
+import org.monnet.namescoring.service.implementation.FirstNameScoringServiceImpl;
 
 /**
  * This main class is the CLI entry point for the name scoring application.

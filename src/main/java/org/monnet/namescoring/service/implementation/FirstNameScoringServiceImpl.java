@@ -1,11 +1,11 @@
-package org.monnet.namescoring.service.implmentation;
+package org.monnet.namescoring.service.implementation;
 
 import java.util.List;
 import java.util.Optional;
 
-import org.monnet.namescoring.entity.CharacterScoreMap;
 import org.monnet.namescoring.entity.Name;
 import org.monnet.namescoring.exception.UnsupportedCharacterException;
+import org.monnet.namescoring.pointmap.CharacterScoreMap;
 import org.monnet.namescoring.service.ScoringService;
 
 import lombok.AllArgsConstructor;

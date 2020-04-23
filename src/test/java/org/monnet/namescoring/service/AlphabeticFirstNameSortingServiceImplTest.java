@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.monnet.namescoring.entity.Name;
-import org.monnet.namescoring.service.implmentation.AlphabeticFirstNameSortingServiceImpl;
+import org.monnet.namescoring.service.implementation.AlphabeticFirstNameSortingServiceImpl;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
